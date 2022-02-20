@@ -34,9 +34,10 @@ namespace ZimbabweCalendar.API.Models.Repository
                 return new Result(holidays);
         }
 
-        public Task<Result> GetByMonthAsync(int monthId)
+        public async Task<Result> GetByMonthAsync(int monthId)
         {
-            throw new NotImplementedException();
+            var holidays = await _context.PublicHolidays.Where(x => x.Date.Month.Equals(monthId)).ToListAsync();
+            return new Result(holidays);
         }
     }
 }
