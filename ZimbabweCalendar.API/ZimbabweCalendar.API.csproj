@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Models\Data\" />
   </ItemGroup>
 
 </Project>
