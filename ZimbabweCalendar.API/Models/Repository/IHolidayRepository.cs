@@ -4,8 +4,8 @@ namespace ZimbabweCalendar.API.Models.Repository
 {
     public interface IHolidayRepository
     {
-        Task<Result<IEnumerable<PublicHoliday>>> GetByMonthAsync(int monthId);
-        Task<Result<IEnumerable<PublicHoliday>>> GetAllAsync();
-        Task<Result<PublicHoliday>> AddHolidayAsync(PublicHoliday publicHoliday);
+        Task<Result> GetByMonthAsync(int monthId);
+        Task<Result> GetAllAsync();
+        Task<Result> AddHolidayAsync(PublicHoliday publicHoliday);
     }
 }

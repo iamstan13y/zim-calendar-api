@@ -1,4 +1,5 @@
-﻿using ZimbabweCalendar.API.Models.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ZimbabweCalendar.API.Models.Data;
 using ZimbabweCalendar.API.Models.Local;
 
 namespace ZimbabweCalendar.API.Models.Repository
@@ -12,27 +13,28 @@ namespace ZimbabweCalendar.API.Models.Repository
             _context = context;
         }
 
-        public async Task<Result<PublicHoliday>> AddHolidayAsync(PublicHoliday publicHoliday)
+        public async Task<Result> AddHolidayAsync(PublicHoliday publicHoliday)
         {
             try
             {
                 await _context.PublicHolidays.AddAsync(publicHoliday);
                 await _context.SaveChangesAsync();
-                return new Result<PublicHoliday>(publicHoliday);
+                return new Result(publicHoliday);
             }
             catch (Exception ex)
             {
-                return new Result<PublicHoliday>(false, 
+                return new Result(false, 
                     new List<string>() { ex.ToString() });
             }
         }
 
-        public Task<Result<IEnumerable<PublicHoliday>>> GetAllAsync()
+        public async Task<Result> GetAllAsync()
         {
-            throw new NotImplementedException();
+                var holidays = await _context.PublicHolidays.ToListAsync();
+                return new Result(holidays);
         }
 
-        public Task<Result<IEnumerable<PublicHoliday>>> GetByMonthAsync(int monthId)
+        public Task<Result> GetByMonthAsync(int monthId)
         {
             throw new NotImplementedException();
         }
