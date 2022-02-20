@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ZimbabweCalendar.API.Models;
-using ZimbabweCalendar.API.Models.Local;
 using ZimbabweCalendar.API.Models.Repository;
 
 namespace ZimbabweCalendar.API.Controllers
@@ -16,23 +15,19 @@ namespace ZimbabweCalendar.API.Controllers
             _repository = repository;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(PublicHolidayRequest request)
-        {
-            var result = await _repository.AddHolidayAsync(new PublicHoliday
-            {
-                Title = request.Title,
-                Description = request.Description,
-                Date = request.Date
-            });
-
-            return Ok(result);
-        }
-
-        [HttpGet]
+        [HttpGet("get-all-holidays")]
+        [ProducesResponseType(typeof(IEnumerable<PublicHoliday>), 200)]
         public async Task<IActionResult> GetAllHolidays()
         {
             var holidays = await _repository.GetAllAsync();
+            return Ok(holidays);
+        }
+
+        [HttpGet("get-by-month/{monthId}")]
+        [ProducesResponseType(typeof(IEnumerable<PublicHoliday>), 200)]
+        public async Task<IActionResult> GetHolidaysByMonth(int monthId)
+        {
+            var holidays = await _repository.GetByMonthAsync(monthId);
             return Ok(holidays);
         }
     }
