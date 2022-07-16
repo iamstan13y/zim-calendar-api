@@ -1,1 +1,1 @@
-# zim-calendar-api
+# Zim-calendar-api
